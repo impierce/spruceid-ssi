@@ -37,8 +37,8 @@ fn did_web_url(did: &str) -> Result<String, ResolutionMetadata> {
         Some(_) => parts.collect::<Vec<&str>>().join("/"),
         None => ".well-known".to_string(),
     };
-    // Use http for localhost, for testing purposes.
-    let proto = if domain_name.starts_with("localhost") {
+    // Use http for localhost and private IPs, for testing purposes.
+    let proto = if domain_name.starts_with("localhost") || domain_name.starts_with("192.168.") {
         "http"
     } else {
         "https"
